@@ -13,6 +13,9 @@ public class UserDto {
     private String password;
     private String imageUri;
 
+    public UserDto() {
+    }
+
     public UserDto(int id, int age, String name, String surname, String email, String status, String login, String password, String imageUri) {
         this.id = id;
         this.age = age;

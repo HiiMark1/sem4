@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.vagaviev.semester.dto.CreateUserDto;
+import ru.itis.vagaviev.semester.dto.UserDto;
 import ru.itis.vagaviev.semester.service.UserService;
 
 @Controller
@@ -19,9 +20,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
-    public String login() {
-
+    @GetMapping("/signIn")
+    public String login(Model model) {
+        model.addAttribute("user", new UserDto());
         return "login";
     }
 
@@ -35,7 +36,7 @@ public class UserController {
     public String reg(@ModelAttribute(name = "user") CreateUserDto createUserDto) {
         userService.save(createUserDto);
 
-        return "success";
+        return "redirect:/login";
     }
 
 }
