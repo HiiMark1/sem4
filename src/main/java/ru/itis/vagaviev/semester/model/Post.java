@@ -31,6 +31,15 @@ public class Post {
     public Post() {
     }
 
+    public Post(int userId, String date, int rating, String text, String picUrl, String name) {
+        this.userId = userId;
+        this.date = date;
+        this.rating = rating;
+        this.text = text;
+        this.picUrl = picUrl;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

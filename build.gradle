@@ -19,6 +19,8 @@ dependencies {
     implementation "org.webjars:jquery:3.6.0"
     implementation "org.webjars:bootstrap:4.6.0"
     implementation "org.webjars:webjars-locator-core:0.46"
+    implementation 'com.cloudinary:cloudinary-core:1.32.2'
+    implementation 'com.cloudinary:cloudinary-http44:1.32.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'

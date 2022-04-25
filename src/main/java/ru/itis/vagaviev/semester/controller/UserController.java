@@ -1,5 +1,7 @@
 package ru.itis.vagaviev.semester.controller;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,11 @@ import ru.itis.vagaviev.semester.service.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "dnsjpwxps",
+            "api_key", "832458528611266",
+            "api_secret", "IJ6YMkTB6wEG4iqOQgTXUvGCFaQ",
+            "secure", true));
 
     @Autowired
     public UserController(UserService userService) {
@@ -37,6 +44,12 @@ public class UserController {
         userService.save(createUserDto);
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/success")
+    public String getInfo() {
+
+        return "success";
     }
 
 }

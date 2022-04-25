@@ -24,7 +24,7 @@ public class PostDto {
         this.name = name;
     }
 
-    public PostDto formModel(Post post){
+    public static PostDto formModel(Post post){
         return new PostDto(post.getId(),
                 post.getUserId(),
                 post.getDate(),

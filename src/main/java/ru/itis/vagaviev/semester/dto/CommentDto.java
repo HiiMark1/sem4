@@ -10,7 +10,7 @@ public class CommentDto {
     private String text;
     private int postId;
 
-    public CommentDto formModel(Comment comment){
+    public static CommentDto formModel(Comment comment){
         return new CommentDto(
                 comment.getId(),
                 comment.getUserId(),

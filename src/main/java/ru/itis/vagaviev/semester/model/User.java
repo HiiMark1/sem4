@@ -31,18 +31,6 @@ public class User {
 
     private String imageUri;
 
-    @OneToOne(mappedBy = "report")
-    private Report report;
-
-    @OneToOne(mappedBy = "post")
-    private Post post;
-
-    @OneToOne(mappedBy = "message")
-    private Message message;
-
-    @OneToOne(mappedBy = "comment")
-    private Comment comment;
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
@@ -66,13 +54,6 @@ public class User {
 
     }
 
-    public Report getReport() {
-        return report;
-    }
-
-    public void setReport(Report report) {
-        this.report = report;
-    }
 
     public String getEmail() {
         return email;

@@ -8,7 +8,7 @@ public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int userID;
+    private int userId;
     private long date;
     //2000
     private String text;
@@ -37,17 +37,17 @@ public class Report {
         this.text = text;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userID) {
+        this.userId = userID;
     }
 
-    public Report(int id, int userID, long date, String text) {
+    public Report(int id, int userId, long date, String text) {
         this.id = id;
-        this.userID = userID;
+        this.userId = userId;
         this.date = date;
         this.text = text;
     }

@@ -14,7 +14,7 @@ public class MessageDto {
     private long date;
     private String name;
 
-    public MessageDto formModel(Message message){
+    public static MessageDto formModel(Message message){
         return new MessageDto(
                 message.getId(),
                 message.getText(),

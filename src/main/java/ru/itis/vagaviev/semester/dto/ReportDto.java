@@ -22,7 +22,7 @@ public class ReportDto {
     public ReportDto formModel(Report report){
         return new ReportDto(
                 report.getId(),
-                report.getUserID(),
+                report.getUserId(),
                 report.getDate(),
                 report.getText()
         );
