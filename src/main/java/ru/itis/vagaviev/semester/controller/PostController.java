@@ -65,7 +65,9 @@ public class PostController {
         List<CommentDto> commentList = commentService.getAllCommentsForPost(id);
         modelPost.addAttribute("post", postDto);
         modelComments.addAttribute("comments", commentList);
-        modelComm.addAttribute("comm", new CreateCommentDto());
+        CreateCommentDto comm = new CreateCommentDto();
+        comm.setPostId(id);
+        modelComm.addAttribute("comm", comm);
         return "post";
     }
 
