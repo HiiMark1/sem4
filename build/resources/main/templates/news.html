@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статьи</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+<div id="header">
+    <H3>Статьи</H3>
+</div>
+
+<div>
+    <br>
+    <td>
+        <span th:if="${posts.size == 0}">
+            Новости отсутствуют
+        </span>
+        <span th:unless="${posts.size == 0}">
+            <tr th:each="post: ${posts}">
+                <p style="margin: 40px; width: 400px; height: 120px; background: bisque; text-align: center">
+                    <a style="" th:text="${post.name}" th:href="@{/post(id=${post.id})}"/>
+                    <br>
+                    <td th:text="${post.text}">text</td>
+                </p>
+                <br>
+            </tr>
+        </span>
+    </td>
+</div>
+<div>
+<button style="position: absolute; top: 30px; right: 50px;"><a href="/new_post">Создать новый пост</a> </button>
+</div>
+</body>
+</html>

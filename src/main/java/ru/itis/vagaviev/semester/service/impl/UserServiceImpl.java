@@ -38,5 +38,23 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void deleteUser(String email) {
+        userRepository.deleteUserByEmail(email);
+    }
 
+    @Override
+    public void updateName(String name, String email) {
+        userRepository.changeName(name, email);
+    }
+
+    @Override
+    public void updateSurame(String surname, String email) {
+        userRepository.changeSurname(surname, email);
+    }
+
+    @Override
+    public void updateStatus(String status, String email) {
+        userRepository.changeStatus(status, email);
+    }
 }

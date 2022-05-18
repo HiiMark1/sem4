@@ -9,4 +9,6 @@ public interface PostService {
     PostDto save(CreatePostDto post);
 
     List<PostDto> getAllPosts();
+
+    PostDto getById(int id);
 }

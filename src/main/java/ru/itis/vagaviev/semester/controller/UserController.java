@@ -3,6 +3,8 @@ package ru.itis.vagaviev.semester.controller;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,15 +43,54 @@ public class UserController {
 
     @PostMapping("/sign_up")
     public String reg(@ModelAttribute(name = "user") CreateUserDto createUserDto) {
+        createUserDto.setName("Name");
+        createUserDto.setSurname("Surname");
+        createUserDto.setStatus("Status");
         userService.save(createUserDto);
 
         return "redirect:/login";
     }
 
-    @GetMapping("/success")
-    public String getInfo() {
-
-        return "success";
+    @GetMapping("/profile")
+    public String profile(Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = null;
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails) principal).getUsername();
+        }
+        model.addAttribute("user", userService.getUserByEmail(email));
+        return "profile";
     }
 
+    @GetMapping("/delete_profile")
+    public String deleteProfile(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = null;
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails) principal).getUsername();
+        }
+        userService.deleteUser(email);
+        return "delete_profile";
+    }
+
+    @PostMapping("/edit_profile")
+    public String editProfile(@ModelAttribute(name = "user") CreateUserDto createUserDto) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = null;
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails) principal).getUsername();
+        }
+        UserDto user = userService.getUserByEmail(email);
+        if(!createUserDto.getName().equals("Name") && !createUserDto.getName().equals(user.getName())){
+            user.setName(createUserDto.getName());
+        }
+        if(!createUserDto.getSurname().equals("Surname") && !createUserDto.getSurname().equals(user.getSurname())){
+            user.setSurname(createUserDto.getSurname());
+        }
+        if(!createUserDto.getStatus().equals("Status") && !createUserDto.getStatus().equals(user.getStatus())){
+            user.setStatus(createUserDto.getStatus());
+        }
+
+        return "redirect:/login";
+    }
 }

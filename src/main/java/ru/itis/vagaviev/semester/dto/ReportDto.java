@@ -19,7 +19,7 @@ public class ReportDto {
     public ReportDto() {
     }
 
-    public ReportDto formModel(Report report){
+    public static ReportDto formModel(Report report){
         return new ReportDto(
                 report.getId(),
                 report.getUserId(),

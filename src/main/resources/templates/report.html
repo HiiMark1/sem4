@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Репорт</title>
+</head>
+<body>
+<form action="/report" method="post" th:action="@{report}" th:object="${report}">
+    <br>
+    <script type="text/javascript">
+        function countChar() {
+            var is_probel = document.getElementById("is_probel");
+            var count_char = document.getElementById("count_char");
+            var count_char_textarea = document.getElementById("count_char_textarea");
+            var q = document.getElementById("q");
+            if (is_probel.checked != false) {
+                count_char.value = count_char_textarea.value.replace(/ *n*r*t*/g, "").length;
+            }
+            else {
+                count_char.value = count_char_textarea.value.length;
+            }
+            q.innerHTML = 500 - parseInt(count_char.value);
+        }
+
+    </script>
+    <div id="count_char_block">
+            <textarea name="text" id="count_char_textarea" style="width: 600px;height: 300px;"
+                      onchange="countChar()" onkeyup="countChar()" maxlength="500" th:field="*{text}"></textarea><br/>
+        <input name="symbols" type="text" id="count_char" value="0" readonly="readonly" />
+        <input type="checkbox" id="is_probel" onchange="countChar()" />
+        <label for="is_probel">Сколько символов без пробелов</label>
+        <div>Символов осталось: <span  id="q">0</span></div>
+    </div>
+    <br>
+    <input type="submit" value="Отправить репорт">
+</form>
+</body>
+</html>

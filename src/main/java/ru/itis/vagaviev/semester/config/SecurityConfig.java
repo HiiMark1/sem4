@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/success", "/new_post", "/news", "/post_created")
+                .antMatchers("/success", "/new_post", "/news", "/post_created", "/post", "profile")
                 .authenticated()
                 .anyRequest().permitAll()
                 .and()

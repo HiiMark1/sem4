@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Пост</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
+<div>
+    <H3><td th:text="${post.name}"></td></H3>
+</div>
+<br><br><br>
+<p style="margin-left: 80px; margin-right: 240px" th:text="${post.text}">text</p>
+<br><br><br>
 
+<form style="width: 260px; height: 60px; background: antiquewhite" action="/post" method="post" th:action="@{post}" th:object="${comm}">
+    Напишите ваш комментарий:
+    <br>
+    <input type="text" th:field="*{text}" placeholder="Введите текст здесь"/>
+    <br>
+    <input type="submit" value="Отправить комментарий">
+</form>
+
+<div>
+    <br>
+    <td>
+        <span th:if="${comments.size == 0}">
+            Комментариев нет
+        </span>
+        <span th:unless="${comments.size == 0}">
+            <tr th:each="comment: ${comments}">
+                <p style="margin: 40px; width: 200px; height: 90px; background: bisque; text-align: center">
+                    <td th:text="${comment.text}">text</td>
+                </p>
+                <br>
+            </tr>
+        </span>
+    </td>
+</div>
 </body>
 </html>

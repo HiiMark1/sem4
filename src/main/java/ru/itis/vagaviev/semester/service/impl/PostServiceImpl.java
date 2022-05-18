@@ -1,7 +1,6 @@
 package ru.itis.vagaviev.semester.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.vagaviev.semester.dto.CreatePostDto;
 import ru.itis.vagaviev.semester.dto.PostDto;
@@ -10,17 +9,16 @@ import ru.itis.vagaviev.semester.repository.PostRepository;
 import ru.itis.vagaviev.semester.service.PostService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
-    private final BCryptPasswordEncoder encoder;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, BCryptPasswordEncoder encoder) {
+    public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
-        this.encoder = encoder;
     }
 
     @Override
@@ -32,5 +30,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> getAllPosts() {
         return postRepository.findAll().stream().map(PostDto::formModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public PostDto getById(int id) {
+        Optional<Post> post = postRepository.getPostById(id);
+        if(post.isPresent()){
+            return PostDto.formModel(post.get());
+        } else {
+            return null;
+        }
     }
 }

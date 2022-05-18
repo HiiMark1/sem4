@@ -8,11 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.itis.vagaviev.semester.dto.CreatePostDto;
-import ru.itis.vagaviev.semester.dto.PostDto;
+import ru.itis.vagaviev.semester.dto.*;
 import ru.itis.vagaviev.semester.service.CommentService;
 import ru.itis.vagaviev.semester.service.PostService;
 import ru.itis.vagaviev.semester.service.UserService;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class PostController {
             email = ((UserDetails) principal).getUsername();
         }
         createPostDto.setUserId(userService.getUserByEmail(email).getId());
+        createPostDto.setDate(String.valueOf(System.currentTimeMillis()));
+        createPostDto.setPicUrl("Nah");
         postService.save(createPostDto);
         return "redirect:/post_created";
     }
@@ -47,17 +50,29 @@ public class PostController {
         return "new_post";
     }
 
-    @GetMapping("/post_created")
-    public String postCreated() {
-
-        return "post_created";
-    }
-
     @GetMapping("/news")
     public String getNews(Model model) {
         List<PostDto> postDtoList = postService.getAllPosts();
         Collections.reverse(postDtoList);
         model.addAttribute("posts", postDtoList);
         return "news";
+    }
+
+    @GetMapping("/post")
+    public String getArticle(Model modelPost, Model modelComments, Model modelComm, HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        PostDto postDto = postService.getById(id);
+        List<CommentDto> commentList = commentService.getAllCommentsForPost(id);
+        modelPost.addAttribute("post", postDto);
+        modelComments.addAttribute("comments", commentList);
+        modelComm.addAttribute("comm", new CreateCommentDto());
+        return "post";
+    }
+
+    @PostMapping("/post")
+    public String reg(@ModelAttribute(name = "comm") CreateCommentDto createCommentDto) {
+        commentService.save(createCommentDto);
+
+        return "redirect:/news";
     }
 }

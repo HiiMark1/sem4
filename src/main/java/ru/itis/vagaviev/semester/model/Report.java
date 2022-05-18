@@ -52,6 +52,12 @@ public class Report {
         this.text = text;
     }
 
+    public Report(int userId, long date, String text) {
+        this.userId = userId;
+        this.date = date;
+        this.text = text;
+    }
+
     public Report() {
     }
 }
